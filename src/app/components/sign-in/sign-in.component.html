@@ -1,0 +1,13 @@
+<form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+    <p>
+        <label for="Username">First Name </label>
+        <input type="text" id="Username" name="Username" formControlName="Username">
+    </p>
+    <p>
+        <label for="Password">Last Name </label>
+        <input type="text" id="Password" name="Password" formControlName="Password">
+    </p>
+    <p>
+        <button type="submit">Submit</button>
+    </p>
+</form>
