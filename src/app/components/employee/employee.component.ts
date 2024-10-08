@@ -17,13 +17,16 @@ export class EmployeeComponent implements OnInit {
   employeeResponse :any;
   employeeForm: FormGroup = new FormGroup({});
   @ViewChild('myModal') model: ElementRef | undefined;
-  
-  constructor(private _employeeService: EmployeeService, private fb: FormBuilder) { 
+  departments: any;
+
+  constructor(private _employeeService: EmployeeService, private fb: FormBuilder) 
+  { 
   }
 
   ngOnInit(): void {
     this.setFormState();
     this.getEmployees();
+    this.getDepartment();
   }
 
   setFormState() {
@@ -32,6 +35,8 @@ export class EmployeeComponent implements OnInit {
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
       email: ['', [Validators.required]],
+      departmentID: [''],
+      departmentName: ['']
     });
   }
 
@@ -50,7 +55,6 @@ export class EmployeeComponent implements OnInit {
   OnEdit(data: EmployeeResponse) {
     this.openModal();
     this.employeeForm.patchValue(data);
-    console.log(data)
   }
 
   onDelete(employee: EmployeeResponse) {
@@ -71,8 +75,15 @@ export class EmployeeComponent implements OnInit {
     }
   }
 
+  getDepartment() {
+    this.departments = [
+      { departmentID: 1, departmentName: 'HR'},
+      { departmentID: 2, departmentName: '.Net'},
+      { departmentID: 3, departmentName: 'Java'}
+    ];
+  }
+
   onSubmit() {
-    console.log(this.employeeForm.value);
     this._employeeService.AddEmployee(this.employeeForm.value).subscribe((response : any) => {
       if(response.data.statusCode = 200){
         console.log(response);
